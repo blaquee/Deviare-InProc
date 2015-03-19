@@ -30,9 +30,10 @@
 #ifndef _NKT_THREADSUSPEND_H
 #define _NKT_THREADSUSPEND_H
 
-#include <windows.h>
+#include "..\..\Include\NktHookLib.h"
 
 namespace NktHookLib {
+namespace Internals {
 
 //-----------------------------------------------------------
 
@@ -97,6 +98,7 @@ private:
 
 //-----------------------------------------------------------
 
+} //Internals
 } //NktHookLib
 
 #endif //_NKT_THREADSUSPEND_H
