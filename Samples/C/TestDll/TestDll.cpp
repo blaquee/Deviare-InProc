@@ -31,12 +31,12 @@
 
 //-----------------------------------------------------------
 
-BOOL APIENTRY DllMain(__in HMODULE hModule, __in DWORD ulReasonForCall, __in LPVOID lpReserved)
+extern "C" BOOL APIENTRY DllMain(__in HMODULE hModule, __in DWORD ulReasonForCall, __in LPVOID lpReserved)
 {
   switch (ulReasonForCall)
   {
     case DLL_PROCESS_ATTACH:
-      ::MessageBoxW(NULL, L"TestDll loaded", L"TestDll", MB_OK);
+      ::MessageBoxW(NULL, L"In DllMain process attach", L"TestDll", MB_OK);
       break;
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
@@ -44,4 +44,14 @@ BOOL APIENTRY DllMain(__in HMODULE hModule, __in DWORD ulReasonForCall, __in LPV
       break;
   }
   return TRUE;
+}
+
+extern "C" DWORD __stdcall InitializeDll()
+{
+  if (::MessageBoxW(NULL, L"In InitializeDll. Press 'OK' to continue or 'Cancel' to return an error.", L"TestDll",
+                    MB_OKCANCEL) != IDOK)
+  {
+    return ERROR_CANCELLED;
+  }
+  return ERROR_SUCCESS;
 }
